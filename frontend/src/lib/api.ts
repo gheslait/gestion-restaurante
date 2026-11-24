@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const TOKEN_KEY = "rms_token";
 
-const baseURL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+const baseURL = import.meta.env.VITE_API_URL ?? "https://rms-api.gheslait.com"; // Default to production API if env variable is not set
 
 export const api = axios.create({
   baseURL,
