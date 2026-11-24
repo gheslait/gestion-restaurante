@@ -62,7 +62,7 @@ services:
     # La etapa builder define VITE_API_URL vacía y Vite prioriza las variables
     # del proceso sobre frontend/.env, así que hay que pasarla explícitamente.
     environment:
-      VITE_API_URL: http://localhost:8000
+      VITE_API_URL: https://rms-api.gheslait.com
     ports:
       - "5173:5173"
     volumes:
