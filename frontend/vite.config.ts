@@ -14,6 +14,9 @@ export default defineConfig({
   },
   server: {
     host: "0.0.0.0",
+    allowedHosts: [
+      'rms.gheslait.com'
+    ],
     port: 5173,
     watch: {
       usePolling: true,
