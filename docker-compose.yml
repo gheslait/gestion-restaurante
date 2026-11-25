@@ -55,24 +55,16 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      # Etapa con Node (la final es nginx para producción y no tiene npm)
-      target: builder
+      args:
+        VITE_API_URL: ${VITE_API_URL:-https://rms-api.gheslait.com}
     container_name: rms_frontend
     restart: unless-stopped
-    # La etapa builder define VITE_API_URL vacía y Vite prioriza las variables
-    # del proceso sobre frontend/.env, así que hay que pasarla explícitamente.
-    environment:
-      VITE_API_URL: https://rms-api.gheslait.com
     ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "5173:8080"
     depends_on:
       - backend
     networks:
       - rms_network
-    command: npm run dev -- --host 0.0.0.0
 
 volumes:
   db_data:

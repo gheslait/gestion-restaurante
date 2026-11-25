@@ -48,12 +48,12 @@ cp frontend/.env.example frontend/.env
 docker compose up --build
 ```
 
-La primera vez tarda unos minutos (descarga imágenes e instala dependencias). Al arrancar, el backend automáticamente:
+La primera vez tarda unos minutos (descarga imágenes e instala dependencias y compila el frontend). Al arrancar, el backend automáticamente:
 
 1. Crea las tablas de la base de datos (migraciones de Alembic).
 2. Crea el usuario administrador inicial si no existe.
 
-La aplicación está lista cuando en la consola aparece `Application startup complete` (backend) y `VITE ... ready` (frontend).
+El frontend se compila para producción durante la construcción de la imagen y Nginx sirve los archivos estáticos; no se ejecuta el servidor de desarrollo de Vite.
 
 ### 5. Abrir la aplicación
 
@@ -102,6 +102,10 @@ docker compose down -v
 | Health check de la base de datos | http://localhost:8000/health/db |
 | Adminer (gestor visual de la BD) | http://localhost:8080 |
 | MySQL | localhost:3306 |
+
+### Despliegue en Dokploy
+
+El servicio `frontend` construye la aplicación con Vite y la sirve con Nginx en el puerto interno `8080`; en Dokploy, configura el dominio del frontend para apuntar a ese puerto. Define `VITE_API_URL` como variable del proyecto con la URL pública de la API antes de construir o redesplegar, ya que el valor se incorpora al bundle durante el build.
 
 ### Acceso a Adminer
 
